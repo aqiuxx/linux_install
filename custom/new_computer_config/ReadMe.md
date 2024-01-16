@@ -25,6 +25,7 @@ python3 install.py --id 1
 只要配置下
 1. vim ~/.gitconfig 中的email的user
 2. vim ~/.config/terminator/config 中的终端默认路径，按自己的实际需要来
+3. 上传代码，还需要配置下token， 参考： https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8
 
 
 # 1 工具
