@@ -1037,7 +1037,7 @@ class ChooseWithCategoriesTask(Task):
         return choose_id,""
 
     def run(self):
-        PrintUtils.print_delay("RUN Choose Task:[请输入括号内的数字]")
+        PrintUtils.print_delay("RUN Choose Task:[请输入括号内的数字]",0.001)
         PrintUtils.print_delay(self.tips,0.001)
         return ChooseWithCategoriesTask.__choose(self.dic,self.tips,self.array,self.categories)
 
@@ -1074,6 +1074,11 @@ class FileUtils():
         """
         users = CmdTask("users", 0).run()
         if users[0]!=0:  return ['root']
+
+        whoami = CmdTask("whoami", 0).run()
+        print(whoami)
+        if whoami[1] == ['root'] : return ['root']
+
         # TODO 使用ls再次获取用户名
         users = users[1][0].split(" ")
         if len(users[0])==0:
@@ -1268,6 +1273,9 @@ class BaseTool():
     TYPE_INSTALL = 0
     TYPE_UNINSTALL = 1
     TYPE_CONFIG = 2
+    TYPE_CODE_COMPILE = 3
+    TYPE_CODE_RUN = 4
+    TYPE_CODE_VISULIZATION = 5
     def __init__(self,name,tool_type):
         self.osinfo = osversion
 
@@ -1290,6 +1298,8 @@ class BaseTool():
         # PrintUtils.print_delay("一键安装已开源，欢迎给个star/提出问题/帮助完善：https://github.com/fishros/install/ ")
 
 def run_tool_file(file,autorun=True):
+    if file == '': return False
+
     """运行工具文件，可以获取其他工具的对象"""
     import importlib
     tool = importlib.import_module(file.replace(".py","")).Tool()
