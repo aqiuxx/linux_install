@@ -17,7 +17,7 @@ class Tool(BaseTool):
         # 安装oh-my-zsh
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         """
-        CmdTask('sudo apt install iputils-ping -y', os_command=True).run()
+        CmdTask('sudo apt install tree iputils-ping -y', os_command=True).run()
         CmdTask('sudo apt install terminator -y', os_command=True).run()
         CmdTask('sudo apt install git zsh -y', os_command=True).run()
         CmdTask('sudo apt install autojump -y', os_command=True).run()
