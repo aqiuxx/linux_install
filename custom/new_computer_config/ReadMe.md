@@ -16,10 +16,15 @@ git clone https://github.com/aqiuxx/terminal_config.git tools/terminal_config
 
 
 ## 0.3 配置新电脑
+install.py 中的 url_prefix 改为, 当前仓库的目录
+
+
 python3 install.py --id 110
 
 
 python3 install.py --id 110 (运行两次， 一次因为安装oh-my-zsh的时候，会退出终端)
+
+
 安装ros（可选）：
 python3 install.py --id 1
 
