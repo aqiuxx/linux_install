@@ -553,8 +553,8 @@ class Workflow:
             if file.suffix == '.pack':
                 pack_folders.append(self.pack_root)
                 break
-        else:
-            # recursive sub folder
+        # recursive sub folder
+        if len(pack_folders) == 0:
             for folder in self.pack_root.rglob('*'):
                 if folder.is_dir():
                     for file in folder.iterdir():
@@ -908,3 +908,5 @@ if __name__ == '__main__':
         else:
             # load monitor resources and plot
             Plotter.load_plot_monitor_resource(Path(args.folder))
+
+    print("Finish!")

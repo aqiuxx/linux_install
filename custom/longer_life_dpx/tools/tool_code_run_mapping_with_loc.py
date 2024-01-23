@@ -25,11 +25,11 @@ class Tool(BaseTool):
         PrintUtils.print_info("工作目录: " + dst_dir)
         CmdTask("python run.py run --speed=3 --monitor \
                 --no-use-maprec-line \
-                --auto-trigger-start \
                 --pack-folder ~/Documents/dataset/sample \
                 --save-folder ~/Documents/dataset/log \
                 --bole-pack-folder ~/Documents/5_soft/bolepack \
                 --mapping-folder ~/Documents/1_code/ndm_envnav/output/ndm_envmodel \
+                --loc-folder ~/Documents/dataset/navinet_superparking \
                 ", path=dst_dir, os_command=True).run()
 
 

@@ -33,6 +33,8 @@ tools ={
     6: {'tip':'可视化建图代码-arm', 'type':CODE_VISUALIZATION, 'tool': url_prefix+'tools/tool_code_visualization_mapping_arm.py', 'dep':[]},
     7: {'tip':'运行-可视化建图代码', 'type':CODE_VISUALIZATION, 'tool': '', 'dep':[3,5]},
     8: {'tip':'编译-运行-可视化建图代码', 'type':CODE_VISUALIZATION, 'tool': '', 'dep':[1,3,5]},
+    9: {'tip':'运行建图代码', 'type':CODE_RUN, 'tool': url_prefix+'tools/tool_code_run_mapping_with_loc.py', 'dep':[]},
+
 
     # 77: {'tip':'测试模式:运行自定义工具测试'},
     78: {'tip':'编译模板代码', 'type':CODE_COMPILE, 'tool': url_prefix+'tools/test/tool_code_compile_test.py', 'dep':[]},
