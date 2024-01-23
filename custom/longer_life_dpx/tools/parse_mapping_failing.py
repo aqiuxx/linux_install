@@ -1,4 +1,5 @@
 import os
+import sys
 # import openpyxl
 # import pandas as pd
 # import collections
@@ -8,18 +9,19 @@ import numpy as np
 
 print(__file__)
 
-import sys
-sys.path.append(os.path.dirname(__file__)+"/../..")
-import common.file_operate as file_operate
+# import sys
+# sys.path.append(os.path.dirname(__file__)+"/../..")
+# import common.file_operate as file_operate
 
 
 np.set_printoptions(linewidth=200,
                     formatter={'float': lambda x: "{:6.3f}".format(x)})
 
 
+
+
+
 import collections
-
-
 # 3. 广度优先遍历，按层遍历  了解
 def traverse_by_brand(path, prefix, suffix, depth=100, get_dir_only = False):
     allfile = []
@@ -120,6 +122,10 @@ def parse_fail_result(log_file):
     return fail_result
 
 import pandas as pd
+def read_csv_txt(csv_path):
+    tfs = pd.read_csv(csv_path, encoding="utf8")
+    return tfs
+
 def save_map_to_csv(output_csv, key_to_vals_map, labels):
     # city = pd.DataFrame([['Sacramento', 'California'], ['Miami', 'Florida']], columns=['id', 'name'])
     pd_key_to_vals = pd.DataFrame({labels[0]: key_to_vals_map.keys(), labels[1]: key_to_vals_map.values()})
@@ -127,6 +133,13 @@ def save_map_to_csv(output_csv, key_to_vals_map, labels):
 
 if __name__=="__main__":
     dir = os.path.dirname(__file__)
+    src_dir = os.getcwd()
+    print(sys.argv[0])
+    print(__file__)
+    print(dir)
+    print(src_dir)
+    dir = src_dir
+    print("!!!")
 
     ##### 1 解析所有的数据
     dir_name_to_id_map = {}
@@ -142,7 +155,7 @@ if __name__=="__main__":
     mapping_result_csv_out = dir + "/output/0.0.16_1.csv"
     log_name_to_fail_reason_out = dir + "/output/log_name_to_fail_reason_out.csv"
     if os.path.exists(mapping_result_csv):
-        mapping_result_pd = file_operate.read_csv_txt(mapping_result_csv)
+        mapping_result_pd = read_csv_txt(mapping_result_csv)
 
         mapping_path = mapping_result_pd['数据路径']
         mapping_flag = mapping_result_pd['建图成功']

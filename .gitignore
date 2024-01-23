@@ -1,4 +1,4 @@
-
+**/output
 *.pyc
 **/*.tar.gz
 **/terminal_config

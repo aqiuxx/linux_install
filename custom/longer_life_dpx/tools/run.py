@@ -26,6 +26,17 @@ class ModuleType(Enum):
     Loc = 3
 
 
+import pandas as pd
+def read_csv_txt(csv_path):
+    tfs = pd.read_csv(csv_path, encoding="utf8")
+    return tfs
+
+log_name_to_fail_reason_out = "output/log_name_to_fail_reason_out.csv"
+dataset_to_run = []
+if os.path.exists(log_name_to_fail_reason_out):
+    dataset_to_run = read_csv_txt(log_name_to_fail_reason_out)["log_name"].to_list()
+
+
 class ModuleConfig:
     def __init__(
         self, type: ModuleType, app: str, real_app: str, arguments: List[str] = [], work_folder: Path = None
@@ -497,9 +508,19 @@ class Workflow:
 
         # find all pack folders
         pack_folders = self.__find_pack_folder(print=True)
-
+        print(dataset_to_run)
         # run for each folder
         for n, pack_folder in enumerate(pack_folders):
+            dataset_name = pack_folder.name.split('/')[-1]
+            logging.info(f'n:{n}, folder: {pack_folder}, name:{dataset_name}')
+
+            if dataset_to_run:
+                if dataset_name in dataset_to_run:
+                    logging.info(f'!!!!!!!!!!!!!!!!!!!!!!!!---> Run It ! {dataset_name}')
+                    # continue
+                else:
+                    continue
+
             # print title
             title = f' [{n+1}/{len(pack_folders)}] {pack_folder.name} '
             logging.warning(f'{title:=^80}')
