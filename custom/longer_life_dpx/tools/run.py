@@ -25,7 +25,7 @@ class ModuleType(Enum):
     Mapping = 2
     Loc = 3
 
-
+# begin: add by qiuzhichang
 import pandas as pd
 def read_csv_txt(csv_path):
     tfs = pd.read_csv(csv_path, encoding="utf8")
@@ -35,7 +35,7 @@ log_name_to_fail_reason_out = "output/log_name_to_fail_reason_out.csv"
 dataset_to_run = []
 if os.path.exists(log_name_to_fail_reason_out):
     dataset_to_run = read_csv_txt(log_name_to_fail_reason_out)["log_name"].to_list()
-
+# end: add by qiuzhichang
 
 class ModuleConfig:
     def __init__(
@@ -514,12 +514,14 @@ class Workflow:
             dataset_name = pack_folder.name.split('/')[-1]
             logging.info(f'n:{n}, folder: {pack_folder}, name:{dataset_name}')
 
+            # begin: add by qiuzhichang
             if dataset_to_run:
                 if dataset_name in dataset_to_run:
                     logging.info(f'!!!!!!!!!!!!!!!!!!!!!!!!---> Run It ! {dataset_name}')
                     # continue
                 else:
                     continue
+            # end: add by qiuzhichang
 
             # print title
             title = f' [{n+1}/{len(pack_folders)}] {pack_folder.name} '

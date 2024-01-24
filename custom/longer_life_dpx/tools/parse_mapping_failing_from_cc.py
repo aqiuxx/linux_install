@@ -153,7 +153,7 @@ if __name__=="__main__":
 
     mapping_result_csv = dir + "/output/0.0.16.csv"
     mapping_result_csv_out = dir + "/output/0.0.16_1.csv"
-    log_name_to_fail_reason_out = dir + "/output/log_name_to_fail_reason_out_qzc.csv"
+    log_name_to_fail_reason_out = dir + "/output/log_name_to_fail_reason_out.csv"
     if os.path.exists(mapping_result_csv):
         mapping_result_pd = read_csv_txt(mapping_result_csv)
 

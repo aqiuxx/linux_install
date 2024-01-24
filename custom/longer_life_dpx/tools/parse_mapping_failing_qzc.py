@@ -46,9 +46,10 @@ def traverse_by_brand(path, prefix, suffix, depth=100, get_dir_only = False):
                 queue.append(abs_path)
 
                 if get_dir_only == True:
-                    allfile.append(abs_path)
-                    LogFileNames.append(current)
-                    LogDirPath.append(item)
+                    if current.startswith(prefix) and current.endswith(suffix):
+                        allfile.append(abs_path)
+                        LogFileNames.append(current)
+                        LogDirPath.append(item)
             else:
                 print(current)  # 输出
                 if current.startswith(prefix) and current.endswith(suffix):
@@ -84,13 +85,14 @@ log_to_fail_result_map = {
     "2D odo state is abnormal": "2D odo state is abnormal, 2d里程计异常",
     "global planning planning failed": "global planning planning failed, 全局路径规划失败",
     # "Catch ctrl+c event": "Catch ctrl+c event",
-    "Mapping.log is empty": "空目录，无log",
+    "Mapping.log is empty": "空目录, 无log",
+    "underground-in/sp_map.ndm": "成功",
 }
 
 def parse_fail_result(log_file):
     """ 通过检查 日志文件中的每一行,是否包含 log_to_fail_result_map 中的日志,
         如果有, 则查找对应的原因, 并返回
-        如果文件不存在, 直接返回 "空目录，无log"
+        如果文件不存在, 直接返回 "空目录, 无log"
 
     Args:
         log_file (str): 输入的日志文件
@@ -143,7 +145,7 @@ if __name__=="__main__":
 
     ##### 1 解析所有的数据
     dir_name_to_id_map = {}
-    [logFiles, Filenames, LogDirPaths] = traverse_by_brand(dir+"/output/0.0.16", "", "", 0, True) # 0代表当前目录
+    [logFiles, Filenames, LogDirPaths] = traverse_by_brand(dir+"/log", "", "", 0, True) # 0代表当前目录
     for idx in range(0, len(logFiles)):
         log_file = logFiles[idx]
         file_name = Filenames[idx]
@@ -151,9 +153,9 @@ if __name__=="__main__":
         dir_name_to_id_map[file_name.split('daq_')[-1]] = idx
         # print("id :{}, file: {}".format(idx, log_file))
 
-    mapping_result_csv = dir + "/output/0.0.16.csv"
-    mapping_result_csv_out = dir + "/output/0.0.16_1.csv"
-    log_name_to_fail_reason_out = dir + "/output/log_name_to_fail_reason_out_qzc.csv"
+    mapping_result_csv = dir + "/0.0.16_1.csv"
+    mapping_result_csv_out = dir + "/0.0.16_2.csv"
+    log_name_to_fail_reason_out = dir + "/log_name_to_fail_reason_out_qzc.csv"
     if os.path.exists(mapping_result_csv):
         mapping_result_pd = read_csv_txt(mapping_result_csv)
 
@@ -189,11 +191,13 @@ if __name__=="__main__":
 
 
         # 4 写到新的csv文件中:
-        mapping_result_pd.insert(9, 'log', "")
-        mapping_result_pd.insert(10, "cause", "")
+        # mapping_result_pd.insert(9, 'log', "")
+        # mapping_result_pd.insert(10, "cause", "")
+        mapping_result_pd.insert(11, 'log2', "")
+        mapping_result_pd.insert(12, "cause2", "")
         for key, value in csv_id_to_fail_result_map.items():
-                mapping_result_pd['log'].iloc[key] = get_key(log_to_fail_result_map, value)
-                mapping_result_pd['cause'].iloc[key] = value
+                mapping_result_pd['log2'].iloc[key] = get_key(log_to_fail_result_map, value)
+                mapping_result_pd['cause2'].iloc[key] = value
 
         mapping_result_pd.to_csv(mapping_result_csv_out, index=False, header=True)
 

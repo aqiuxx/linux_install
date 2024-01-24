@@ -36,6 +36,10 @@ tools ={
     9: {'tip':'运行建图代码', 'type':CODE_RUN, 'tool': url_prefix+'tools/tool_code_run_mapping_with_loc.py', 'dep':[]},
 
 
+    20: {'tip':'可视化轨迹，分析回环', 'type':CODE_RUN, 'tool': url_prefix+'tools/tool_code_visualization_loopclosure.py', 'dep':[]},
+    21: {'tip':'分析Mapping.log,查看失败原因', 'type':CODE_RUN, 'tool': url_prefix+'tools/tool_code_parse_mapping_failing.py', 'dep':[]},
+
+
     # 77: {'tip':'测试模式:运行自定义工具测试'},
     78: {'tip':'编译模板代码', 'type':CODE_COMPILE, 'tool': url_prefix+'tools/test/tool_code_compile_test.py', 'dep':[]},
     79: {'tip':'运行模板代码', 'type':CODE_RUN, 'tool': url_prefix+'tools/test/tool_code_run_test.py', 'dep':[]},
